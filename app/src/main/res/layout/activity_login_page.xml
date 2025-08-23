@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:padding="24dp"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/topRightCircle"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:scaleType="centerCrop"
+        android:alpha="0.7"
+        android:src="@drawable/purple_gradient_circle"
+        android:contentDescription="Large top right purple gradient circle background" />
+
+    <ImageButton
+        android:id="@+id/backButton"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Back button"
+        android:src="@drawable/ic_arrow_back" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/backButton"
+        android:layout_marginTop="40dp"
+        android:text="Welcome Back"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title"
+        android:layout_marginTop="8dp"
+        android:text="Don't have an account? "
+        android:textColor="#6B7280"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/signInLink"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignBaseline="@id/subtitle"
+        android:layout_toEndOf="@id/subtitle"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="Sign up"
+        android:textColor="#7C3AED"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/nameInput"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@id/subtitle"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/rounded_edittext"
+        android:hint="Name"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:textColorHint="#9CA3AF"
+        android:textSize="12sp"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/emailInput"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@id/nameInput"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/rounded_edittext"
+        android:hint="Email or phone"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:textColorHint="#9CA3AF"
+        android:textSize="12sp"
+        android:inputType="textEmailAddress" />
+
+    <EditText
+        android:id="@+id/passwordInput"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@id/emailInput"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/rounded_edittext"
+        android:hint="Password"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:textColorHint="#9CA3AF"
+        android:textSize="12sp"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/signUpButton"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_below="@id/passwordInput"
+        android:layout_marginTop="24dp"
+        android:layout_alignParentEnd="true"
+        android:backgroundTint="#7C3AED"
+        android:text="Log in"
+        android:textColor="#FFFFFF"
+        android:textAllCaps="false"
+        android:textSize="14sp"
+        android:drawableEnd="@drawable/ic_sign_in_alt"
+        android:drawablePadding="8dp"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:fontFamily="sans-serif-medium" />
+
+</RelativeLayout>
