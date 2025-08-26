@@ -9,15 +9,32 @@ public class LoginInfo {
     String email;
     String password;
 
-    public LoginInfo
-            (
-                    int id, String username, String email, String password
-            ) {
+    private byte[] image;
+
+    public LoginInfo(int id, String username, String email, String password) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
     }
+
+
+    public LoginInfo(int id, String username, String email, String password, byte[] image) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.image = image;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
 
 //    public LoginInfo(int id, String movie_name, String pythonMovie, String reactMovie, String mssqlMovie, String javaMovie, int year, int duration, float ratingBar, String gender, String male) { }
 

@@ -18,22 +18,26 @@
         android:src="@drawable/purple_gradient_circle"
         android:contentDescription="Large top right purple gradient circle background" />
 
-    <ImageButton
-        android:id="@+id/backButton"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="Back button"
-        android:src="@drawable/ic_arrow_back" />
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/montserrat_semibold"
+        android:gravity="center"
+        android:text="Jerry SQLite Project"
+        android:textAlignment="gravity"
+        android:textColor="#673AB7"
+        android:textSize="23sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/backButton"
-        android:layout_marginTop="40dp"
+        android:layout_below="@id/textView"
+        android:layout_marginTop="50dp"
         android:text="Create account"
         android:textColor="#000000"
         android:textSize="24sp"
@@ -90,25 +94,46 @@
         android:textSize="12sp"
         android:inputType="textEmailAddress" />
 
-    <EditText
-        android:id="@+id/passwordInput"
+    <RelativeLayout
+        android:id="@+id/passwordContainer"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_below="@id/emailInput"
         android:layout_marginTop="16dp"
-        android:background="@drawable/rounded_edittext"
-        android:hint="Password"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:textColorHint="#9CA3AF"
-        android:textSize="12sp"
-        android:inputType="textPassword" />
+        android:background="@drawable/rounded_edittext">
+
+        <EditText
+            android:id="@+id/passwordInput"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Password"
+            android:paddingStart="16dp"
+            android:paddingEnd="48dp"
+            android:textColorHint="#9CA3AF"
+            android:textSize="12sp"
+            android:inputType="textPassword"
+            android:background="@android:color/transparent" />
+
+        <ImageView
+            android:id="@+id/passwordToggle"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="7dp"
+            android:clickable="true"
+            android:contentDescription="Toggle password visibility"
+            android:focusable="true"
+            android:padding="4dp"
+            android:src="@drawable/ic_eye_closed" />
+
+    </RelativeLayout>
 
     <Button
         android:id="@+id/signUpButton"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:layout_below="@id/passwordInput"
+        android:layout_below="@id/passwordContainer"
         android:layout_marginTop="24dp"
         android:layout_alignParentEnd="true"
         android:backgroundTint="#7C3AED"
