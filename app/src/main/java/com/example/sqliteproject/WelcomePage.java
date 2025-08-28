@@ -29,7 +29,7 @@ public class WelcomePage extends AppCompatActivity {
     DatabaseAccessModifier db;
     ImageView backArrow, profileImage;
 
-    private LoginInfo loggedInUser;  // ✅ To track the currently logged-in user
+    private LoginInfo loggedInUser;  // ✅ Store the currently logged-in user
 
     private final ActivityResultLauncher<Intent> imagePickerLauncher =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
@@ -46,10 +46,14 @@ public class WelcomePage extends AppCompatActivity {
                         // ✅ Save image for this specific user
                         if (loggedInUser != null) {
                             db.updateUserImage(loggedInUser.getId(), imageBytes);
+
+                            // ✅ Refresh user info after updating image
+                            loggedInUser = db.getUserById(loggedInUser.getId());
+
                             profileImage.setImageBitmap(bitmap);
                             Toast.makeText(this, "Profile picture updated!", Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(this, "No user found!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this, "No user found! Please log in again.", Toast.LENGTH_SHORT).show();
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -71,33 +75,37 @@ public class WelcomePage extends AppCompatActivity {
 
         db = new DatabaseAccessModifier(this);
 
-        // ✅ Get the currently logged-in user passed from MainActivity/LoginPage
+        // ✅ Get user ID from intent
         Intent intent = getIntent();
-//        int userId = intent.getIntExtra("USER_ID", -1);
-        int userId = intent.getIntExtra("userId", -1);
+        int userId = intent.getIntExtra("USER_ID", -1);
 
         if (userId != -1) {
-            LoginInfo loginInfo = db.getUserById(userId);
-            if (loginInfo != null) {
-                tvUserName.setText(loginInfo.getUsername());
+            loggedInUser = db.getUserById(userId);
+            if (loggedInUser != null) {
+                tvUserName.setText(loggedInUser.getUsername());
                 tvWelcome.setText("Welcome Back");
 
-                byte[] imageBytes = loginInfo.getImage();
+                // ✅ Load saved profile image if exists
+                byte[] imageBytes = loggedInUser.getImage();
                 if (imageBytes != null && imageBytes.length > 0) {
                     Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
                     profileImage.setImageBitmap(bitmap);
                 }
+            } else {
+                Toast.makeText(this, "User not found in database!", Toast.LENGTH_SHORT).show();
             }
+        } else {
+            String username = getIntent().getStringExtra("username");
+            tvUserName.setText(username);
+            Toast.makeText(this, "Invalid User ID received!", Toast.LENGTH_SHORT).show();
         }
 
         // ✅ Profile image click → open gallery (handle permissions correctly)
         profileImage.setOnClickListener(v -> {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                // Use the system photo picker instead of requesting storage permission
-                Intent imageintent = new Intent(MediaStore.ACTION_PICK_IMAGES);
-                imagePickerLauncher.launch(imageintent);
+                Intent imageIntent = new Intent(MediaStore.ACTION_PICK_IMAGES);
+                imagePickerLauncher.launch(imageIntent);
             } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                // For Android 6 to 12 → request READ_EXTERNAL_STORAGE if needed
                 if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
                         == PackageManager.PERMISSION_GRANTED) {
                     pickImageFromGallery();
@@ -105,11 +113,9 @@ public class WelcomePage extends AppCompatActivity {
                     requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
                 }
             } else {
-                // For older versions → just pick image
                 pickImageFromGallery();
             }
         });
-
 
         // ✅ Logout button
         btnLogout.setOnClickListener(v -> {
@@ -121,8 +127,8 @@ public class WelcomePage extends AppCompatActivity {
 
         // ✅ Back button
         backArrow.setOnClickListener(view -> {
-            Intent backintent = new Intent(WelcomePage.this, MainActivity.class);
-            startActivity(backintent);
+            Intent backIntent = new Intent(WelcomePage.this, MainActivity.class);
+            startActivity(backIntent);
         });
     }
 

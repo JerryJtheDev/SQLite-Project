@@ -118,14 +118,14 @@ public class LoginPage extends AppCompatActivity {
 
             if (userExists) {
                 // ✅ Get the user's ID
-                int userId = databaseAccessModifier.getUserId(username, email, password);
+                LoginInfo loggedInUser = databaseAccessModifier.getUserByEmailAndPassword(email, password);
 
-                if (userId != -1) {
+                if (loggedInUser != null) {
                     Toast.makeText(LoginPage.this, "Login Successful!", Toast.LENGTH_SHORT).show();
 
                     // ✅ Pass username + ID to WelcomePage
                     Intent intent = new Intent(LoginPage.this, WelcomePage.class);
-                    intent.putExtra("userId", userId);
+                    intent.putExtra("USER_ID", loggedInUser.getId());
                     intent.putExtra("username", username);
                     startActivity(intent);
                     finish();
