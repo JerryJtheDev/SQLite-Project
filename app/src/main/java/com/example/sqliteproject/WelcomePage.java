@@ -85,6 +85,8 @@ public class WelcomePage extends AppCompatActivity {
                 tvUserName.setText(loggedInUser.getUsername());
                 tvWelcome.setText("Welcome Back");
 
+
+
                 // ✅ Load saved profile image if exists
                 byte[] imageBytes = loggedInUser.getImage();
                 if (imageBytes != null && imageBytes.length > 0) {
